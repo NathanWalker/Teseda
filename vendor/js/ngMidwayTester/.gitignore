@@ -1,15 +1,1 @@
 .DS_Store
-.idea
-app/css/*
-app/fixtures/js/*
-app/index.html
-app/js/*
-dist/*
-Gruntfile.js
-node_modules/*
-npm-debug.log
-ssl
-test/unit/controllers/*.js
-test/unit/mockData.js
-test/unit/modules/*.js
-vendor/less/**/*.css
