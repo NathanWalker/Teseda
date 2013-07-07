@@ -1,0 +1,64 @@
+
+/*
+
+max width is always at the number, ie. 1000, not 999.
+min-width is always +1 ie. 1001
+
+*/
+
+@golden: 1.61803399;
+@base: 10px;
+@base-golden: @base * @golden;
+
+@venue-min: 320px;
+@venue-max: 1600px;
+
+@smallest-screen-width: @venue-min;
+
+@standard: @venue-max;
+@size: @venue-max;
+
+@global-navbar-height: 44px;
+@global-navbar-height-mobile: @global-navbar-height;
+@global-navbar-item-margin: @global-navbar-height * .333;
+@global-navbar-font-size: @global-navbar-height * .333;
+@global-navbar-item-icon-font-size: @global-navbar-font-size * 1.1;
+
+@global-margin: @global-navbar-height * .25 * .5;
+@global-border-radius: @global-margin;
+@global-border-width: 1px;
+
+@global-btn-height: 30px;
+
+@global-timeline-width: 850px;
+
+@global-content-frame-padding: @global-navbar-height;
+@global-content-frame-padding-tablet: @global-content-frame-padding * .5;
+@global-content-frame-padding-mobile: @global-content-frame-padding * .25;
+@global-content-frame-width: @venue-max - (@global-content-frame-padding * 2);
+
+@global-cards-number-of-rows: 6;
+@global-cards-grid-margin: @global-margin * 4;
+@global-card-border-radius: 5px;
+@global-card-size: (@global-content-frame-width - ((@global-cards-number-of-rows - 1) * @global-cards-grid-margin)) / @global-cards-number-of-rows;
+@global-card-width: @global-card-size;
+@global-card-height: @global-card-size;
+@global-card-poster-height: @global-card-width * 0.375;
+@global-card-size-ratio: @global-card-size / @venue-max;
+
+@global-poster-height: @standard * 0.375;
+
+@global-avatar-size: 300px;
+@global-avatar-left: @global-avatar-size * .5;
+
+@global-card-avatar-left: @global-avatar-left * @global-card-size-ratio;
+@global-settings-pane: 560px;
+
+@global-title-font-size: @global-avatar-size * .5 - @global-navbar-height * 2;
+@global-sidebar-width: @smallest-screen-width - @global-navbar-height-mobile;
+@global-sidebar-wrap-ratio: 0.1425;
+@global-sidebar-margin: @global-content-frame-padding-mobile * 2;
+@global-sidebar-item-width: @global-sidebar-width - @global-sidebar-margin * 2;
+
+
+@global-wrap-sidebar-width: 350px;

@@ -1,0 +1,1 @@
+AppControllers = window.AppControllers = angular.module 'AppControllers', []

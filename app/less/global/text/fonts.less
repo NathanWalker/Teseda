@@ -1,0 +1,109 @@
+
+#font {
+
+  .font-ultra-light {
+    font-style: normal;
+    font-weight: 100;
+  }
+
+  .font-light {
+    font-style: normal;
+    font-weight: 300;
+  }
+
+  .font-regular {
+    font-style: normal;
+    font-weight: 400;
+  }
+
+  .font-italic {
+     font-style: italic;
+      font-weight: 500;
+  }
+
+  .font-bold {
+    font-style: normal;
+    font-weight: bold;
+  }
+
+  #teseda {
+
+    .regular() {
+      font-family: "teseda";
+      .font-regular;
+    }
+  }
+
+  #arial {
+    @font: Arial, "Helvetica Neue", Helvetica, sans-serif;
+
+    .regular() {
+      font-family: @font;
+      .font-regular;
+    }
+
+    .bold() {
+      font-family: @font;
+      .font-bold;
+    }
+  }
+
+  #courier {
+    @font: "Courier New", Courier, monospace;
+
+    .regular() {
+      font-family: @font;
+      .font-regular;
+    }
+
+    .bold() {
+      font-family: @font;
+      .font-bold;
+    }
+  }
+
+  #georgia {
+    @font: Georgia, Times, "Times New Roman", serif;
+
+    .regular() {
+      font-family: @font;
+      .font-regular;
+    }
+
+    .italic() {
+      font-family: @font;
+      .font-italic;
+    }
+
+    .bold() {
+      font-family: @font;
+      .font-bold;
+    }
+  }
+
+  #helvetica {
+    @font: "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    @font-light: "HelveticaNeue-Light", "Helvetica Neue Light";
+    @font-ultra-light: "HelveticaNeue-UltraLight", "Helvetica Neue UltraLight";
+
+    .ultra-light() {
+      font-family: @font-ultra-light, @font-light, @font;
+      .font-ultra-light;
+    }
+
+    .light() {
+      font-family: @font-light, @font;
+      .font-light;
+    }
+
+    .regular() {
+      font-family: @font;
+      .font-regular;
+    }
+
+    .bold() {
+      font-family: @font;
+      .font-bold;
+    }
+  }
+}

@@ -1,0 +1,34 @@
+<div class="content">
+  <div class="sidebar">
+    <div class="content">
+      <div class="meta">
+        <h4 class="title" data-ng-click="viewDetail()">{{about.name}}</h4>
+        <div class="edit-mode">
+          <a
+            class="btn btn-primary"
+            data-resource-edit="about"
+            data-type="about"
+            data-layout="summary"
+            data-id="about.id"
+            data-can-id="project.id"
+            data-title="Edit Write-Up"
+            >Edit</a>
+        </div>
+        <div
+          data-bb-share data-target="about"
+          data-type="about"
+          data-target-project="$parent.project"
+          data-target-name="about.name"
+          ></div>
+      </div>
+    </div>
+  </div>
+  <div class="stage">
+    <div class="content">
+      <p
+        data-bb-pretty-text="about.content"
+        data-bb-target-blank
+        ></p>
+    </div>
+  </div>
+</div>

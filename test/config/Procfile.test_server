@@ -1,0 +1,2 @@
+web_server: node ./scripts/lib/test_server.js
+e2e_server: ./scripts/lib/e2e_server.js 8100

@@ -1,0 +1,1 @@
+midway: ./node_modules/.bin/karma start test/config/midway.js

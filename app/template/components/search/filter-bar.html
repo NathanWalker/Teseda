@@ -1,0 +1,64 @@
+<div class="filter-bar">
+  <div class="content">
+    <ul data-breadcrumbs data-ng-show="title" data-type="{{type}}"></ul>
+    <!--<h2 class="page-title">-->
+    <!--<span class="title">{{title}}</span>-->
+    <!--</h2>-->
+    <div class="search" data-ng-hide="hideControlsIf">
+      <div
+        data-bb-search="search"
+        placeholder="Search"
+        ></div>
+    </div>
+
+    <div
+      class="btn-group"
+      data-toggle="buttons-radio"
+      data-ui-if="visibleFilterBtns"
+      data-ng-hide="hideControlsIf"
+      >
+      <button
+        data-ng-repeat="filterBtn in visibleFilterBtns"
+        type="button" class="btn"
+        data-state="{{isFilterActive(filterBtn)|booleanText:'active':''}}"
+        data-ng-click="changeFilterActive(filterBtn)"
+        >{{filterBtn.label}}
+      </button>
+    </div>
+
+    <div
+      class="btn-group"
+      data-toggle="buttons-radio"
+      data-ui-if="toggleBtns"
+      data-ng-hide="hideControlsIf"
+      >
+      <button
+        data-ng-repeat="toggleBtn in toggleBtns"
+        type="button" class="btn"
+        data-ng-class="{active:toggleActive==toggleBtn.type}"
+        data-state="{{toggleActive==toggleBtn.type|booleanText:'active':''}}"
+        data-ng-click="changeToggleActive(toggleBtn)"
+        >{{toggleBtn.label}}
+      </button>
+    </div>
+    <div
+      class="btn-group"
+      data-toggle="buttons-radio"
+      data-ui-if="sortBtns"
+      data-ng-hide="hideControlsIf"
+      >
+      <button
+        data-ng-repeat="sortBtn in sortBtns"
+        type="button" class="btn"
+        data-ng-class="{active:sortActive.type==sortBtn.type}"
+        data-state="{{sortActive.type==sortBtn.type|booleanText:'active':''}}"
+        data-ng-click="changeSortActive(sortBtn)"
+        data-order="{{sortBtn.order}}"
+        >{{sortBtn.label}}
+      </button>
+    </div>
+    <div data-ng-show="totalMsg && !hideControlsIf">
+      {{totalMsg}}
+    </div>
+  </div>
+</div>

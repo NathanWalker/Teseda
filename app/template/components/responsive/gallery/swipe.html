@@ -1,0 +1,7 @@
+<div class="photos swipe" data-bb-swipe="$parent.gallery.slides">
+  <div class="content">
+    <div data-ng-repeat="frame in bbSwipe" class="photo swipe-frame" data-bb-background-image="frame.image_url" data-fit="clip"></div>
+  </div>
+  <div class="nav" data-icon="prev" data-ng-click="swipePrev($event)"></div>
+  <div class="nav" data-icon="next" data-ng-click="swipeNext($event)"></div>
+</div>

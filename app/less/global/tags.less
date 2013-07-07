@@ -1,0 +1,136 @@
+
+html {
+  background-color: @color-white;
+  background-image: url('/img/square_bg_2x.jpg');
+  background-size: 500px 500px;
+  background-position: center;
+  color: @color-text;
+}
+
+body {
+  background: transparent;
+  color: inherit;
+}
+
+div {
+  .unselectable;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  .selectable;
+  cursor: default;
+}
+
+h4,
+p {
+  font-size: inherit;
+  cursor: default;
+}
+
+form {
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  cursor: pointer;
+  color: @color-action;
+
+  &:hover {
+    color: @color-action-hover;
+  }
+}
+
+ul {
+  padding: 0;
+}
+
+textarea {
+  height: 150px;
+}
+
+input,
+textarea,
+.uneditable-input,
+input[type="text"],
+input[type="password"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="date"],
+input[type="month"],
+input[type="time"],
+input[type="week"],
+input[type="number"],
+input[type="email"],
+input[type="url"],
+input[type="search"],
+input[type="tel"],
+input[type="color"] {
+  @padding: (@global-navbar-height - @global-navbar-font-size) / 2;
+  .box-shadow(none);
+  .transition(none);
+  padding: @padding @global-navbar-height * .333;
+  font-size: @global-navbar-font-size;
+  border: none;
+  background: @color-fill;
+  color: @color-text;
+  width: 100%;
+  margin: 0 0 @global-margin * 2 0;
+
+  &.slim {
+    @height: @global-navbar-height - @global-margin * 2;
+    @padding: (@height - @global-navbar-font-size) / 2;
+    padding: @padding @height * .333;
+    height: @global-navbar-height - @global-margin * 2;
+  }
+}
+
+input[type="text"],
+input[type="password"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="date"],
+input[type="month"],
+input[type="time"],
+input[type="week"],
+input[type="number"],
+input[type="email"],
+input[type="url"],
+input[type="search"],
+input[type="tel"],
+input[type="color"] {
+  line-height: @global-navbar-font-size;
+  height: @global-navbar-height;
+
+  &.slim {
+    //@height: @global-navbar-height - @global-margin * 2;
+    //@padding: (@height - @global-navbar-font-size) / 2;
+    //padding: @padding @height * .333;
+    //height: @global-navbar-height - @global-margin * 2;
+  }
+}
+
+select {
+  height: @global-navbar-height;
+  text-indent: 5px;
+  padding: 0;
+}
+
+@media (max-width: 1600px) {
+
+  html {
+    background: @color-white;
+  }
+}
+
+@media (max-width: 560px) {
+
+  html {
+    background: @color-background;
+  }
+}
