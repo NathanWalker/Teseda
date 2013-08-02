@@ -1,0 +1,19 @@
+<form class="search-container" novalidate>
+  <a
+    data-icon="nearby"
+    data-ng-class="{active:isCurrentLocation(['/wraps/nearby'])}"
+    data-ng-click="$parent.changeRoute('/wraps/nearby')"
+    title="Search for Wraps Nearby"
+    ></a>
+  <div class="search-query-container">
+    <input
+      class="search-query"
+      autocapitalize="off"
+      autocorrect="off"
+      data-ng-model="userInput"
+      data-placeholder="Search"
+      placeholder="Search"
+      type="search"
+      />
+  </div>
+</form>

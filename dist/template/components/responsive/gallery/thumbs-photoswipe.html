@@ -1,0 +1,23 @@
+<div class="photos">
+  <div
+    ui-sortable="sortableOptions"
+    data-ng-model="gallery.slides"
+    class="content"
+    id="{{gallery.id}}"
+    data-bb-photo-swipe
+    >
+    <div
+      data-ng-repeat="slide in gallery.slides"
+      class="photo"
+      data-slide-id="{{$parent.slide.id}}"
+      data-bb-background-image="slide.image_url"
+      data-ng-click="$parent.showSlideByIndex($parent.$index)"
+      data-fit="crop"
+      >
+      <a
+        href="javascript:void(0)"
+        data-href="{{$parent.slide.image_url.url}}"
+        ></a>
+    </div>
+  </div>
+</div>

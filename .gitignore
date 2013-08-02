@@ -4,7 +4,6 @@ app/css/*
 app/fixtures/js/*
 app/index.html
 app/js/*
-dist/*
 Gruntfile.js
 node_modules/*
 npm-debug.log
