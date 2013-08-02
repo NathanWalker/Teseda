@@ -1,4 +1,4 @@
-App = window.App = angular.module("TesedaApp", ["Logger", "LoadingSpinner", "ErrorMsgs", "LocalStorage", "AppControllers", "AppDirectives", "AppServices", "AppFilters", "AppRoutes", "User", "UXTracking", "ngMobile", "ngSanitize", "ui.utils", "ui.map", "ui.select2", "ui.bootstrap", "ElementResizer", "AppCache", "Network", "AppSettings", "Modal", "Breadcrumbs", "OAuth", "StaticText", "ngTable"])
+App = window.App = angular.module("TesedaApp", ["Logger", "LoadingSpinner", "ErrorMsgs", "LocalStorage", "AppControllers", "AppDirectives", "AppServices", "AppFilters", "AppRoutes", "User", "UXTracking", "ngMobile", "ngSanitize", "ui.utils", "ui.map", "ui.select2", "ui.bootstrap", "AppCache", "Network", "AppSettings", "Modal", "Breadcrumbs", "OAuth", "StaticText", "ngTable"])
 
 # CONSTANTS
 App
@@ -16,14 +16,6 @@ App
   .value("UXTracking.config",
     enabled: not Teseda.prop.debug
   )
-  .value("ElementResizer.config",
-    enabled: true
-    debug: false
-    venue:
-      max:1600
-      min:320
-    targets:DESIGN.targets
-  )
   .value("ui.config",
     {}
   )
@@ -40,9 +32,6 @@ App
       activeFilterBtns:{} # active filter btns (blend list views with different sets of meta info)
       activeToggleBtns: {} # active toggle btns
       activeSortBtns:{} # active sort btns
-      componentSort:
-        files:
-          name: 'asc'
       version: Teseda.util.parseVersion(Teseda.prop.version)
   )
 
@@ -71,62 +60,12 @@ App.run ["FAKE_MOBILE", "LogService", "UXTrackingService", "$rootScope", "$locat
   $rootScope.HasGeolocation = $window.navigator.geolocation and typeof $window.navigator.geolocation.getCurrentPosition is "function"
   $rootScope.UserDeniedLocation = false
   $rootScope.statictext = statictext
-  $rootScope.leftbariScroll
-  $rootScope.rightbariScroll
+  $rootScope.navCollapsed = true
 
   # Menu
   $rootScope.menuEnabled = false
   $rootScope.toggleMenu = (force) ->
     $rootScope.menuEnabled = if _.isNothing(force) then not $rootScope.menuEnabled else force
-
-  # Header
-  updateNav = () ->
-    # reset others
-    _.forEach $rootScope.mainNav, (l) ->
-      l.active = false
-      return
-
-    _.forEach $rootScope.mainNav, (l) ->
-      if l.link is $location.url()
-        l.active = true
-
-  $rootScope.mainNav = [
-    {
-      label: 'Home'
-      link: '/'
-      active:false
-      useCarousel:true
-    },
-    {
-      label: 'Products'
-      link: '/products'
-      active: false
-      useCarousel: false
-      dropdown:
-        options: [
-          {
-            label:'V550',
-            link: '/products?id=V550'
-          },
-          {
-            label:'V520',
-            link: '/products?id=V520'
-          }
-        ]
-    },
-    {
-      label: 'About'
-      link: '/about'
-      active: false
-      useCarousel: false
-    },
-    {
-      label: 'Contact'
-      link: '/contact'
-      active: false
-      useCarousel: false
-    }
-  ]
 
   # Carousel
   $rootScope.carouselInterval = 6000
@@ -174,9 +113,7 @@ App.run ["FAKE_MOBILE", "LogService", "UXTrackingService", "$rootScope", "$locat
     # checks incoming location
     _.contains routeArray, $location.url()
 
-  routeChangeFunctions = []
   $rootScope.changeRoute = (route) ->
-    $rootScope.sidebarToggle(null, false)
     $location.url(route)
 
   $rootScope.pageNotFound = ->
@@ -187,52 +124,10 @@ App.run ["FAKE_MOBILE", "LogService", "UXTrackingService", "$rootScope", "$locat
     # dispatched mostly from directives with isolate scopes
     $rootScope.changeRoute route
 
-  $rootScope.$watch "leftbarActive", (val) ->
-    $rootScope.rightbarActive = false
-    $rootScope.barActiveSide = (if val then "left" else "")
-
-  $rootScope.$watch "rightbarActive", (val) ->
-    $rootScope.leftbarActive = false
-    $rootScope.barActiveSide = (if val then "right" else "")
-
-  $rootScope.$on Teseda.scope.events.sidebar.toggle, (e, type, force) ->
-    $rootScope.sidebarToggle(type, force)
-
-  $rootScope.sidebarToggle = (type, force) ->
-    changeResult =
-      type: type
-
-    if _.isNothing(force)
-      Teseda.util.hideBarScrollTo(5);
-      # true toggle
-      if type is "left" and $rootScope.rightbarActive
-        $rootScope.rightbarActive = false
-      else if type is "right" and $rootScope.leftbarActive
-        $rootScope.leftbarActive = false
-      # toggle accordingly
-      $rootScope[type + "barActive"] = not $rootScope[type + "barActive"]
-      _.extend changeResult, { enabled: $rootScope[type + "barActive"] }
-    else
-      $rootScope.rightbarActive = $rootScope.leftbarActive = force
-      _.extend changeResult, { enabled: force }
-    # notify of the sidebar change
-    $rootScope.$broadcast Teseda.scope.events.sidebar.change, changeResult
-
-  $rootScope.isSidebarActive = (type) ->
-    $rootScope[type + "barActive"]
-
-  $rootScope.sidebarActiveClass = (type) ->
-    (if $rootScope[type + "barActive"] then "active" else "")
-
-  $rootScope.pageCloseSidebar = (e) ->
-    unless _.isNothing(e)
-      isGrip = _.contains ['grip-leftbar', 'grip-rightbar'], $(e.target).attr('data-icon')
-      if not isGrip
-        $rootScope.sidebarToggle(null, false)
-
 
   $rootScope.$on "$routeChangeStart", (e, next, current) ->
     log '---- $routeChangeStart'
+    $rootScope.navCollapsed = true
 
     $rootScope.viewPageClass = undefined
     bcService.clear() # always clear breadcrumbs
@@ -243,7 +138,6 @@ App.run ["FAKE_MOBILE", "LogService", "UXTrackingService", "$rootScope", "$locat
   $rootScope.$on "$routeChangeSuccess", (event, current, previous, rejection) ->
     log '---- $routeChangeSuccess'
     ux.pageview($location.url())
-    updateNav()
 
 
   ###
@@ -280,11 +174,7 @@ App.run ["FAKE_MOBILE", "LogService", "UXTrackingService", "$rootScope", "$locat
     if $rootScope.viewPageClass
       pClass = "page-#{$rootScope.viewPageClass}"
     else
-      if _.contains($location.url(), 'account') and _.contains($location.url(), 'settings')
-        pClass = 'account-settings'
-      else
-        pClass = Teseda.util.pageClassFromRoute($location.url())
-      pClass = "page-" + pClass
+      pClass = "page-" + Teseda.util.pageClassFromRoute($location.url())
     return pClass + (if Teseda.platform.IS_MOBILE then ' is-mobile' else '')
 
 
@@ -301,22 +191,12 @@ App.run ["FAKE_MOBILE", "LogService", "UXTrackingService", "$rootScope", "$locat
   $rootScope.$on Teseda.scope.events.user.loginRequired, (e, showMsg) ->
     $rootScope.alert statictext.login.errorMsg  if showMsg
 
-  ###
-  window handling
-  ###
-  $($window).on 'beforeunload', () ->
-    if $rootScope.uploadsInProgress
-      return statictext.wraps.fileUploadsInProgress
-
 
   ###
   INIT CORE SERVICES
   Order here is important!
   ###
   settings.init()
-  userService.init()
-
-  # set active nav
-  updateNav()
+  #userService.init()
 
 ]

@@ -14,7 +14,7 @@ module.exports = (grunt) ->
 
   preparationTasks = ["concat:vendor", "coffee:dev", "concat:dev"]
   grunt.registerTask "dev-prepare", preparationTasks
-  grunt.registerTask "dev", ["clean", "recess:vendor", "cssdev", "dev-prepare", "server", "watch:views"]
+  grunt.registerTask "dev", ["clean", "dev-prepare", "server", "watch:views"]
 
   grunt.registerTask "coffee-compile", "compile all coffee", ->
     grunt.log.writeln "--------- compiling coffee ---------"
@@ -36,7 +36,7 @@ module.exports = (grunt) ->
     grunt.config "isProduction", true
     grunt.task.run "prod"
 
-  grunt.registerTask "prod", ["clean", "recess:vendor", "cssdev", "coffee:dev", "concat:vendor", "uglify", "concat:prod", "recess:prod", "copy:assets", "preflight"]
+  grunt.registerTask "prod", ["clean", "concat:vendor", "coffee:dev", "uglify", "concat:prod", "copy:assets", "preflight"]
   grunt.registerTask "preflight", ["server:dist", "watch:views"]
 
   # TESTING
@@ -182,9 +182,8 @@ module.exports = (grunt) ->
         "vendor/js/jquery/jquery-2.0.2.min.js",
         "vendor/js/utils/*.js",
         "vendor/js/jquery/jquery.scrollIntoView.js",
-        "vendor/js/jquery/select2.js",
         "vendor/js/jquery/code.photoswipe.jquery-3.0.5.1.min.js",
-        "vendor/js/swipe/*.js",
+        "vendor/js/isotope/jquery.isotope.min.js",
         "vendor/js/angular/angular.min.js",
         "vendor/js/angular/angular-resource.min.js",
         "vendor/js/angular/angular-sanitize.min.js",
@@ -194,9 +193,9 @@ module.exports = (grunt) ->
         "vendor/js/angular-ui/ui-bootstrap-0.4.0-bbcustomized.js",
         "vendor/js/angular-ui/ui-map.js",
         "vendor/js/angular-ui/ui-select2.js",
-        "vendor/js/showdown/showdown.js",
         "vendor/js/local-storage/store.min.js",
-        "vendor/js/ngTable/ng-table.js"
+        "vendor/js/ngTable/ng-table.js",
+        "vendor/js/theme/*.js"
       ]
 
       # App-specific Code
@@ -223,34 +222,55 @@ module.exports = (grunt) ->
       html: ["app/index-edit-me.html", "app/views/**/*.html"]
       less: ["app/less/index.less"] # recess:build doesn't accept ** in its file patterns
 
-    clean: ["<%= distdir %>", "app/js/angular", "app/js/app.js", "app/js/vendor.js", "app/js/config", "app/js/controllers", "app/js/directives", "app/js/filters", "app/js/modules", "app/js/services", "app/css"]
+    clean: [
+      "<%= distdir %>",
+      "app/js/angular",
+      "app/js/app.js",
+      "app/js/vendor.js",
+      "app/js/config",
+      "app/js/controllers",
+      "app/js/directives",
+      "app/js/filters",
+      "app/js/modules",
+      "app/js/services"
+    ]
     copy:
       assets:
         files: [
+          dest: "<%= distdir %>/assets"
+          src: "**"
+          expand: true
+          cwd: "app/assets/"
+        ,
+          dest: "<%= distdir %>/css"
+          src: "**"
+          expand: true
+          cwd: "app/css/"
+        ,
+          dest: "<%= distdir %>/downloads"
+          src: "**"
+          expand: true
+          cwd: "app/downloads/"
+        ,
+          dest: "<%= distdir %>/fonts"
+          src: "**"
+          expand: true
+          cwd: "app/fonts/"
+        ,
           dest: "<%= distdir %>/img"
           src: "**"
           expand: true
           cwd: "app/img/"
-        ,
-          dest: "<%= distdir %>/views"
-          src: "**"
-          expand: true
-          cwd: "app/views/"
         ,
           dest: "<%= distdir %>/template"
           src: "**"
           expand: true
           cwd: "app/template/"
         ,
-          dest: "<%= distdir %>/js/design.js"
+          dest: "<%= distdir %>/views"
           src: "**"
           expand: true
-          cwd: "app/js/design.js"
-        ,
-          dest: "<%= distdir %>/js/compatibility"
-          src: "**"
-          expand: true
-          cwd: "app/js/compatibility/"
+          cwd: "app/views/"
         ]
 
     coffee:
@@ -377,7 +397,8 @@ module.exports = (grunt) ->
     changelog:
       options:
         dest: "CHANGELOG.md"
-        templateFile: "changelog.tpl.md"
+        templateFile: "lib/changelog.tpl.md"
+        github:"https://github.com/NathanWalker/TesedaWeb"
 
 
 #    , html2js: {
