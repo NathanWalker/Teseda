@@ -16,7 +16,102 @@ angular.module("AppDirectives", ["StaticText"]).directive("bbTargetBlank", ['$ti
 
   restrict: 'A'
   link: link
-).directive("bbNav", ->
+).directive('tesedaFaq', ->
+  link = (scope, element, attrs) ->
+    $(".faq input[type=text]").bind 'keyup', ->
+
+      # text to search
+      search = $(this).val().toLowerCase()
+
+      # search if there are at least 3 characters
+      if search.length > 2
+
+        # for each question+answer in list
+        $(".faq li").each ->
+          question = $(this).find("h3").text()
+          answer = $(this).find("p").text()
+          search_in = (question + answer).toLowerCase()
+          if search_in.indexOf(search) is -1
+
+            # no match
+            $(this).hide()
+          else
+
+            # match
+            $(this).show()
+
+        unless $(".faq li:visible").length
+          $(".no-results").show()
+        else
+          $(".no-results").hide()
+      else
+
+        # show all if search box doesn't contains enough characters
+        $(".faq li").show()
+
+
+  restrict:"A"
+  link:link
+).directive('tesedaIsotope', ['$timeout', ($timeout) ->
+  link = (scope, element, attrs) ->
+    # container
+    $container = undefined
+    filter_projects = (tag) ->
+
+      # filter projects
+      $container.isotope filter: tag
+
+      # clear active class
+      $("#portfolio li.active").removeClass "active"
+
+      # add active class to filter selector
+      $("#portfolio-filter").find("[data-filter='" + tag + "']").parent().addClass "active"
+
+      # update location hash
+      # window.location.hash = tag.replace(".", "")  unless tag is "*"
+      # window.location.hash = ""  if tag is "*"
+
+    init = ->
+      $container = $("#portfolio-items")
+      if $container.length
+
+        # conver data-tags to classes
+        $(".project").each ->
+          $this = $(this)
+          tags = $this.data("tags")
+          if tags
+            classes = tags.split(",")
+            i = classes.length - 1
+
+            while i >= 0
+              $this.addClass classes[i]
+              i--
+
+
+        # initialize isotope
+        $container.isotope
+          # options...
+          itemSelector: ".project"
+          layoutMode: "fitRows"
+
+
+        # filter items
+        $("#portfolio-filter li a").bind 'click', ->
+          selector = $(this).attr("data-filter")
+          filter_projects selector
+          false
+
+
+        # filter tags if location.has is available. e.g. http://example.com/work.html#design will filter projects within this category
+        # filter_projects "." + window.location.hash.replace("#", "")  unless window.location.hash is ""
+
+    $timeout ->
+      init()
+    , 400
+
+  restrict:"A"
+  link:link
+]).directive("bbNav", ->
   link = (scope, element, attrs) ->
 
   restrict: "A"
@@ -424,7 +519,7 @@ angular.module("AppDirectives", ["StaticText"]).directive("bbTargetBlank", ['$ti
       $rootScope.infiniteScrollLoading = false
       $timeout.cancel infiniteTimeout  if infiniteTimeout
 
-]).directive("bbBackgroundImage", ["$timeout", "$rootScope", "ElementResizerService", ($timeout, $rootScope, resizer) ->
+]).directive("bbBackgroundImage", ["$timeout", "$rootScope", ($timeout, $rootScope) ->
   link = (scope, element, attrs) ->
     loaded = false
     loadingTimer = undefined
@@ -570,7 +665,7 @@ angular.module("AppDirectives", ["StaticText"]).directive("bbTargetBlank", ['$ti
 
   restrict: "A"
   link: link
-]).directive("bbSwipe", ["$timeout", "ElementResizerService", ($timeout, resizer) ->
+]).directive("bbSwipe", ["$timeout",  ($timeout) ->
   linkFn = (scope, element, attrs) ->
 
     swiper = undefined
@@ -694,9 +789,6 @@ angular.module("AppDirectives", ["StaticText"]).directive("bbTargetBlank", ['$ti
           $swipeControls.find("a").removeClass "active" # reset
           $(this).addClass "active"
           swiper.slide $swipeControls.find("a").index($(this))
-
-      # $timeout(resizer.resize, 0)
-      # $timeout(resizer.resize, 100)
 
     , 0
 

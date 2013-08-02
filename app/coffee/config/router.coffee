@@ -15,22 +15,7 @@ RESOLVE = undefined
       home_path:
         ctrl:'HomeCtrl'
         url:'/'
-        view: 'site/start'
-
-      login_path:
-        ctrl:'LoginCtrl'
-        url:'/login'
-        view: 'site/login'
-
-      private_browsing_path:
-        ctrl:'HomeCtrl'
-        url:'/private_browsing'
-        view: 'site/private-browsing-notice'
-
-      products_path:
-        ctrl:'ProductsCtrl'
-        url:'/products'
-        view: 'site/products'
+        view: 'site/home'
 
       about_path:
         ctrl:'HomeCtrl'
@@ -42,10 +27,40 @@ RESOLVE = undefined
         url:'/contact'
         view: 'site/contact'
 
+      news_path:
+        ctrl:'NewsCtrl'
+        url:'/news'
+        view: 'site/news'
+
       privacy_path:
         ctrl:'HomeCtrl'
         url:'/privacy'
-        view:'site/privacy'
+        view: 'site/privacy'
+
+      products_path:
+        ctrl:'ProductsCtrl'
+        url:'/products'
+        view: 'site/products'
+
+      tutorials_path:
+        ctrl:'TutorialsCtrl'
+        url:'/tutorials'
+        view: 'site/tutorials'
+
+      specs_path:
+        ctrl:'HomeCtrl'
+        url:'/specs'
+        view: 'site/specs'
+
+      faq_path:
+        ctrl:'FaqCtrl'
+        url:'/faq'
+        view: 'site/faq'
+
+      support_path:
+        ctrl:'HomeCtrl'
+        url:'/support'
+        view:'site/support'
 
       '404_path':
         ctrl:'HomeCtrl'
