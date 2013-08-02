@@ -398,7 +398,7 @@ module.exports = (grunt) ->
       options:
         dest: "CHANGELOG.md"
         templateFile: "lib/changelog.tpl.md"
-        github:"https://github.com/NathanWalker/TesedaWeb"
+        github:"https://github.com/NathanWalker/Teseda"
 
 
 #    , html2js: {
