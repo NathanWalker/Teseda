@@ -32,9 +32,6 @@ App
       activeFilterBtns:{} # active filter btns (blend list views with different sets of meta info)
       activeToggleBtns: {} # active toggle btns
       activeSortBtns:{} # active sort btns
-      componentSort:
-        files:
-          name: 'asc'
       version: Teseda.util.parseVersion(Teseda.prop.version)
   )
 
@@ -63,8 +60,6 @@ App.run ["FAKE_MOBILE", "LogService", "UXTrackingService", "$rootScope", "$locat
   $rootScope.HasGeolocation = $window.navigator.geolocation and typeof $window.navigator.geolocation.getCurrentPosition is "function"
   $rootScope.UserDeniedLocation = false
   $rootScope.statictext = statictext
-  $rootScope.leftbariScroll
-  $rootScope.rightbariScroll
   $rootScope.navCollapsed = true
 
   # Menu
