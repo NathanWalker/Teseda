@@ -5,6 +5,7 @@ app/fixtures/js/*
 app/index.html
 app/js/*
 Gruntfile.js
+node_modules/*
 npm-debug.log
 ssl
 test/unit/controllers/*.js
