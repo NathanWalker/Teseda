@@ -182,8 +182,8 @@ module.exports = (grunt) ->
         "vendor/js/jquery/jquery-2.0.2.min.js",
         "vendor/js/utils/*.js",
         "vendor/js/jquery/jquery.scrollIntoView.js",
-        "vendor/js/jquery/select2.js",
         "vendor/js/jquery/code.photoswipe.jquery-3.0.5.1.min.js",
+        "vendor/js/isotope/jquery.isotope.min.js",
         "vendor/js/angular/angular.min.js",
         "vendor/js/angular/angular-resource.min.js",
         "vendor/js/angular/angular-sanitize.min.js",
@@ -237,30 +237,40 @@ module.exports = (grunt) ->
     copy:
       assets:
         files: [
+          dest: "<%= distdir %>/assets"
+          src: "**"
+          expand: true
+          cwd: "app/assets/"
+        ,
+          dest: "<%= distdir %>/css"
+          src: "**"
+          expand: true
+          cwd: "app/css/"
+        ,
+          dest: "<%= distdir %>/downloads"
+          src: "**"
+          expand: true
+          cwd: "app/downloads/"
+        ,
+          dest: "<%= distdir %>/fonts"
+          src: "**"
+          expand: true
+          cwd: "app/fonts/"
+        ,
           dest: "<%= distdir %>/img"
           src: "**"
           expand: true
           cwd: "app/img/"
-        ,
-          dest: "<%= distdir %>/views"
-          src: "**"
-          expand: true
-          cwd: "app/views/"
         ,
           dest: "<%= distdir %>/template"
           src: "**"
           expand: true
           cwd: "app/template/"
         ,
-          dest: "<%= distdir %>/js/design.js"
+          dest: "<%= distdir %>/views"
           src: "**"
           expand: true
-          cwd: "app/js/design.js"
-        ,
-          dest: "<%= distdir %>/js/compatibility"
-          src: "**"
-          expand: true
-          cwd: "app/js/compatibility/"
+          cwd: "app/views/"
         ]
 
     coffee:
