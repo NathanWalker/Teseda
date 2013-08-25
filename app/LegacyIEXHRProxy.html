@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title></title>
+<script src="/js/compatibility/jquery.min.js"></script>
+<script src="/js/compatibility/postmessage.js"></script>
+<script type="text/javascript">
+  (function () {
+    pm.bind("xhrRequest", function (data) {
+      if(window.console && window.console.log){
+        console.log(JSON.stringify(data));
+      }
+
+      if (data && data.url) {
+        var ret = $.ajax({
+          type: data.method,
+          url: data.url,
+          headers: data.headers,
+          async: false
+        });
+        return {
+          responseText: ret.responseText,
+          contentType: ret.getResponseHeader("Content-Type")
+        };
+      }
+      return '';
+    });
+
+  })();
+
+</script>
+</head>
+<body>
+</body>
+</html>

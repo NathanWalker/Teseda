@@ -1,0 +1,17 @@
+angular.module("Teseda.core", [
+  "AppSettings"
+  "AppCache"
+  "AppControllers"
+  "Breadcrumbs"
+  "ErrorMsgs"
+  "LoadingSpinner"
+  "LocalStorage"
+  "Logger"
+  "Modal"
+  "Network"
+  "OAuth"
+  "Resource"
+  "RestApi"
+  "StaticText"
+  "UXTracking"
+])

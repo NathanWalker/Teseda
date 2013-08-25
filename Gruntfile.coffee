@@ -177,36 +177,57 @@ module.exports = (grunt) ->
       # always loads first
       # Order matters here!
       vendor: [
-        "vendor/js/utils/es5-shim.min.js",
-        "vendor/js/utils/json3.min.js",
-        "vendor/js/jquery/jquery-2.0.2.min.js",
-        "vendor/js/utils/*.js",
-        "vendor/js/jquery/jquery.scrollIntoView.js",
-        "vendor/js/jquery/code.photoswipe.jquery-3.0.5.1.min.js",
-        "vendor/js/isotope/jquery.isotope.min.js",
-        "vendor/js/angular/angular.min.js",
-        "vendor/js/angular/angular-resource.min.js",
-        "vendor/js/angular/angular-sanitize.min.js",
-        "vendor/js/angular/angular-mobile.js",
-        "vendor/js/angular-ui/ui-utils/modules/*.js",
-        "vendor/js/angular-ui/ui-utils/utils.js",
-        "vendor/js/angular-ui/ui-bootstrap-0.4.0-bbcustomized.js",
-        "vendor/js/angular-ui/ui-map.js",
-        "vendor/js/angular-ui/ui-select2.js",
-        "vendor/js/local-storage/store.min.js",
-        "vendor/js/ngTable/ng-table.js",
-        "vendor/js/theme/*.js"
+        "bower_components/es5-shim/es5-shim.min.js"
+        "bower_components/json3/lib/json3.min.js"
+        "bower_components/jquery/jquery.min.js"
+        "bower_components/jquery-ui/ui/minified/jquery.ui.core.min.js"
+        "bower_components/jquery-ui/ui/minified/jquery.ui.widget.min.js"
+        "bower_components/jquery-ui/ui/minified/jquery.ui.mouse.min.js"
+        "bower_components/jquery-ui/ui/minified/jquery.ui.sortable.min.js"
+        "bower_components/lodash/dist/lodash.compat.min.js"
+
+        "bower_components/javascript-linkify/ba-linkify.min.js"
+        "bower_components/infowrap-date-format/date.format.js"
+        "bower_components/klass/klass.min.js"
+        "bower_components/momentjs/min/moment.min.js"
+        "bower_components/spinjs/dist/spin.min.js"
+        "bower_components/select2/select2.min.js"
+
+        # for IE 8/9 compatibility
+        "vendor/js/compatibility/postmessage.js"
+        "vendor/js/compatibility/angular.ieCors.js"
+        "bower_components/infowrap-angular/build/angular.min.js"
+        "bower_components/infowrap-angular/build/angular-touch.min.js"
+        "bower_components/infowrap-angular/build/angular-route.min.js"
+        "bower_components/infowrap-angular/build/angular-cookies.min.js"
+        "bower_components/infowrap-angular/build/angular-sanitize.min.js"
+
+        "bower_components/angular-ui-utils/modules/**/*.js"
+        "!bower_components/angular-ui-utils/modules/**/test/*.js"
+        "!bower_components/angular-ui-utils/modules/**/demo"
+        "bower_components/angular-ui-utils/utils.js"
+        "bower_components/angular-ui-select2/src/select2.js"
+
+        "bower_components/infowrap-ui-bootstrap/dist/ui-bootstrap-0.6.0-SNAPSHOT.js"
+        "bower_components/store-js/store.min.js"
+        "bower_components/infowrap-ng-table/ng-table.src.js"
+        "bower_components/infowrap-isotope/jquery.isotope.js"
+        "bower_components/infowrap-angular-isotope/dist/infowrap-angular-isotope.js"
+        "bower_components/infowrap-photoswipe/release/3.0.5.1/code.photoswipe.jquery-3.0.5.1.min.js"
+        "vendor/js/theme/*.js",
+        "vendor/js/fancybox/jquery.fancybox.pack.js",
+        "vendor/js/fancybox/helpers/jquery.fancybox-buttons.js",
+        "vendor/js/fancybox/helpers/jquery.fancybox-media.js"
       ]
 
       # App-specific Code
       # Order matters here!
       js: [
-        "app/js/config/design.js",
         "app/js/config/config.js",
         "app/js/config/router.js",
         "app/js/config/teseda.js",
-        "app/js/config/product-constants.js",
-        "app/js/modules/core/**/*.js",
+        "app/js/modules/core/teseda-core.js",
+        "app/js/modules/core/dependencies/*.js",
         "app/js/modules/user/user.js",
         "app/js/modules/user/*s/*.js",
         "app/js/modules/*.js",
@@ -224,8 +245,7 @@ module.exports = (grunt) ->
 
     clean: [
       "<%= distdir %>",
-      "app/js/angular",
-      "app/js/app.js",
+      "app/js/tesedaapp.js",
       "app/js/vendor.js",
       "app/js/config",
       "app/js/controllers",

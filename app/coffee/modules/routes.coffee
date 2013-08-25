@@ -1,4 +1,4 @@
-angular.module("AppRoutes", ["Logger"]).config ["$routeProvider", "$locationProvider", ($routeProvider, $locationProvider) ->
+angular.module("AppRoutes", ["Logger", "ngRoute"]).config ["$routeProvider", "$locationProvider", ($routeProvider, $locationProvider) ->
   routingPrefix = CONFIG.routing.prefix
   $locationProvider.html5Mode true  if CONFIG.routing.html5Mode
   $locationProvider.hashPrefix routingPrefix  if routingPrefix and routingPrefix.length > 0

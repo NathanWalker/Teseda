@@ -1,4 +1,4 @@
-angular.module("User").factory("UserService", ["LogService", "User.config", "$rootScope", "$location", "$q","LocalStorageService", "ResourceService", "UXTrackingService", "$http", 'StaticTextService', 'ModalService', '$window', 'RestApiService', (log, config, $rootScope, $location, $q, localStorageService, rs, ux, $http, statictext, modal, $window, RestApiService) ->
+angular.module("User").factory("UserService", ["LogService", "$rootScope", "$location", "$q","LocalStorageService", "ResourceService", "UXTrackingService", "$http", 'StaticTextService', 'ModalService', '$window', 'RestApiService', (log, $rootScope, $location, $q, localStorageService, rs, ux, $http, statictext, modal, $window, RestApiService) ->
   logId = "UserService"
 
   ###

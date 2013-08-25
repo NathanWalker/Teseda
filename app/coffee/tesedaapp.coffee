@@ -1,23 +1,19 @@
-App = window.App = angular.module("TesedaApp", ["Logger", "LoadingSpinner", "ErrorMsgs", "LocalStorage", "AppControllers", "AppDirectives", "AppServices", "AppFilters", "AppRoutes", "User", "UXTracking", "ngMobile", "ngSanitize", "ui.utils", "ui.map", "ui.select2", "ui.bootstrap", "AppCache", "Network", "AppSettings", "Modal", "Breadcrumbs", "OAuth", "StaticText", "ngTable"])
-
-# CONSTANTS
-App
-  .constant("FAKE_MOBILE", false)
-  .constant("GOOGLE_MAPS_ENABLED", true)
+App = window.App = angular.module("TesedaApp", [ "ngCookies", "ngSanitize", "ngRoute","ngTouch", "ui.utils", "ui.select2", "ui.bootstrap", "ngTable", "Teseda.core", "AppDirectives", "AppServices", "AppFilters", "AppRoutes", "iso", "User"])
 
 # VALUES
 App
   .value("Logger.config",
     debug: Teseda.prop.debug
   )
+  .value("RestApi.config",
+    server: Teseda.uri.apiServer
+    suffix: '.json'
+  )
   .value("ErrorMsgs.config",
     showMessages: true
   )
   .value("UXTracking.config",
     enabled: not Teseda.prop.debug
-  )
-  .value("ui.config",
-    {}
   )
   .value("OAuth.config",
     providers: Teseda.thirdParties
@@ -37,13 +33,15 @@ App
 
 # CONFIG
 App
-  .config ['$compileProvider', ($compileProvider) ->
+  .config ['$compileProvider', '$httpProvider', '$sceProvider',($compileProvider, $httpProvider, $sceProvider) ->
+    $httpProvider.defaults.headers.post['Content-Type'] = 'application/json'
     # fix up url sanitization
-    $compileProvider.urlSanitizationWhitelist(/^\s*(https?|ftp|tel|mailto|file|chrome-extension):/)
+    $compileProvider.aHrefSanitizationWhitelist /^\s*(https?|ftp|tel|mailto|file|chrome-extension):/
+    $sceProvider.enabled(false)
   ]
 
 # RUN
-App.run ["FAKE_MOBILE", "LogService", "UXTrackingService", "$rootScope", "$location", "$window", "$timeout", "$http", "StaticTextService", "UserService", "AppSettingsService", "ModalService", "BreadcrumbService", (fakeMobile, log, ux, $rootScope, $location, $window, $timeout, $http, statictext, userService, settings, modal, bcService) ->
+App.run ["LogService", "UXTrackingService", "$rootScope", "$location", "$window", "$timeout", "$http", "StaticTextService", "UserService", "AppSettingsService", "ModalService", "BreadcrumbService", (log, ux, $rootScope, $location, $window, $timeout, $http, statictext, userService, settings, modal, bcService) ->
 
   ###
   Setup certain route specific methods on $rootScope
@@ -55,7 +53,6 @@ App.run ["FAKE_MOBILE", "LogService", "UXTrackingService", "$rootScope", "$locat
   Convenience properties
   ###
   $rootScope.platform = Teseda.platform
-  $rootScope.platform.IS_MOBILE = true  if fakeMobile
   $rootScope.RequireRemoteAuthentication = false
   $rootScope.HasGeolocation = $window.navigator.geolocation and typeof $window.navigator.geolocation.getCurrentPosition is "function"
   $rootScope.UserDeniedLocation = false

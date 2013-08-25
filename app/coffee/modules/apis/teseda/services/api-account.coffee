@@ -1,5 +1,5 @@
-angular.module(Product.resource.module)
-  .factory(Product.resource.service('Account'), ['LogService', '$rootScope', '$q', 'ResourceService', 'TesedaValidationService', 'StaticTextService', (log, $rootScope, $q, rs, validate, statictext) ->
+angular.module("TesedaApi")
+  .factory("TesedaApiAccountService", ['LogService', '$rootScope', '$q', 'ResourceService', 'TesedaValidationService', 'StaticTextService', (log, $rootScope, $q, rs, validate, statictext) ->
     base = 'accounts'
     remoteKey = 'account'
 

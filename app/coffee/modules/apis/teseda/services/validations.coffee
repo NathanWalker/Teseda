@@ -1,4 +1,4 @@
-angular.module(Product.resource.module).factory "TesedaValidationService", ["#{Product.resource.module}.config", "LogService", "StaticTextService", "$rootScope", (config, log, statictext, $rootScope) ->
+angular.module("TesedaApi").factory "TesedaValidationService", ["TesedaApi.config", "LogService", "StaticTextService", "$rootScope", (config, log, statictext, $rootScope) ->
   logId = "TesedaValidationService"
 
   msg = (msg) ->
