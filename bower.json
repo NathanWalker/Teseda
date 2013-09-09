@@ -2,10 +2,10 @@
   "name": "teseda.com",
   "version": "0.0.0",
   "dependencies": {
-    "infowrap-ng-table": "~0.1.2",
+    "infowrap-ng-table": "~0.1.3",
     "infowrap-isotope": "~0.1.0",
     "infowrap-angular-isotope": "~0.1.5",
-    "infowrap-photoswipe": "~0.1.3",
+    "infowrap-photoswipe": "~0.1.4",
     "infowrap-angular": "~0.1.3",
     "infowrap-ui-bootstrap": "infowrap0.1.2",
     "infowrap-date-format": "~0.1.0",
@@ -19,7 +19,6 @@
     "json3": "~3.2.5",
     "klass": "*",
     "momentjs": "~2.1.0",
-    "photoswipe": "~3.0.3",
     "select2": "~3.4.1",
     "spinjs": "~1.3.0",
     "store-js": "~1.3.9"

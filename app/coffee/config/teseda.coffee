@@ -325,7 +325,6 @@ _.mixin
   newSettings.IS_LEGACY_ANDROID = newSettings.IS_ANDROID and newSettings.version[0] < 4
   newSettings.IS_LEGACY_IOS = newSettings.IS_IOS and newSettings.version[0] < 6
   _.extend Teseda.platform, newSettings
-  CONFIG.routing.html5Mode = not (Teseda.platform.IS_LEGACY_ANDROID or Teseda.platform.IS_LEGACY_IE)
 )()
 
 #  Make the :contains selector case-insensitive

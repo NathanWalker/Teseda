@@ -9,8 +9,6 @@ CONFIG = undefined
   CONFIG =
     version: appVersion
     routing:
-      prefix: "!"
-      html5Mode: false # dynamically configured based on platform in teseda.js (search for html5Mode)
       authorizedRoutes: []
 
       ###

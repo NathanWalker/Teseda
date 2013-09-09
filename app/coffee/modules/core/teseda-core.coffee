@@ -9,7 +9,6 @@ angular.module("Teseda.core", [
   "Logger"
   "Modal"
   "Network"
-  "OAuth"
   "Resource"
   "RestApi"
   "StaticText"

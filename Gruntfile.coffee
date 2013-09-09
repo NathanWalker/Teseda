@@ -224,7 +224,6 @@ module.exports = (grunt) ->
       # Order matters here!
       js: [
         "app/js/config/config.js",
-        "app/js/config/router.js",
         "app/js/config/teseda.js",
         "app/js/modules/core/teseda-core.js",
         "app/js/modules/core/dependencies/*.js",

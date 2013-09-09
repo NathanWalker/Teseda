@@ -1,25 +1,104 @@
 angular.module("AppRoutes", ["Logger", "ngRoute"]).config ["$routeProvider", "$locationProvider", ($routeProvider, $locationProvider) ->
-  routingPrefix = CONFIG.routing.prefix
-  $locationProvider.html5Mode true  if CONFIG.routing.html5Mode
-  $locationProvider.hashPrefix routingPrefix  if routingPrefix and routingPrefix.length > 0
+  $locationProvider.html5Mode(true).hashPrefix('!')
 
-  # quick resolve fillers
-  nope = ->
-    false
+  # configuration
+  prefixView = "views/"
+  suffix = ".html"
 
-  ###
-  CORE ROUTES
-  ###
-  _.forEach Object.keys(ROUTER.routes), (key) ->
-    route = ROUTER.routes[key]
-    params =
-      controller: route.ctrl
-    templateKey = if route.view.indexOf('<') is 0 then 'template' else 'templateUrl'
-    params[templateKey] = if templateKey is 'template' then route.view else CONFIG.prepareViewUrl(route.view)
-    params.resolve = route.resolve if route.resolve
-    ROUTER.when key, route.url, params
+  viewUrl = (view) ->
+    "#{prefixView}#{view}#{suffix}"
 
+  prep = (view, ctrl, resolve, reloadOnSearch, isDev) ->
+    params = {}
+    # supports direct markup ('<div></div>') or view templates ('path/to/view/file')
+    isUrl = view.indexOf('<') is -1
+    templateKey = if isUrl then 'templateUrl' else 'template'
+    params[templateKey] = if isUrl then viewUrl(view, isDev) else view
+    params.controller = ctrl
+    unless _.isUndefined(resolve)
+      params.resolve = resolve
 
-  ROUTER.otherwise redirectTo: "/_404"
-  ROUTER.install $routeProvider
+    # default reloadOnSearch to false (route view change will not occur when modifying $location.search())
+    params.reloadOnSearch = reloadOnSearch or false
+    return params
+
+  # ctrl names
+  ctrlName = (name) ->
+    "#{name}Ctrl"
+  homeCtrl = ctrlName('Home')
+  contactCtrl = ctrlName('Contact')
+  newsCtrl = ctrlName('News')
+  partnersCtrl = ctrlName('Partners')
+  productsCtrl = ctrlName('Products')
+  tutorialsCtrl = ctrlName('Tutorials')
+
+  # CORE ROUTES
+  $routeProvider.when('',
+      prep(
+        'site/home',
+        homeCtrl
+      )
+    ).when('/',
+      prep(
+        'site/home',
+        homeCtrl
+      )
+    ).when('/about',
+      prep(
+        'site/about',
+        homeCtrl
+      )
+    ).when('/contact',
+      prep(
+        'site/contact',
+        contactCtrl
+      )
+    ).when('/news',
+      prep(
+        'site/news',
+        newsCtrl
+      )
+    ).when('/privacy',
+      prep(
+        'site/privacy',
+        homeCtrl
+      )
+    ).when('/products',
+      prep(
+        'site/products',
+        productsCtrl
+      )
+    ).when('/partners',
+      prep(
+        'site/partners',
+        partnersCtrl
+      )
+    ).when('/tutorials',
+      prep(
+        'site/tutorials',
+        tutorialsCtrl
+      )
+    ).when('/specs',
+      prep(
+        'site/specs',
+        homeCtrl
+      )
+    ).when('/support',
+      prep(
+        'site/support',
+        homeCtrl
+      )
+    ).when('/404',
+      prep(
+        'site/404',
+        homeCtrl
+      )
+    ).when('/500',
+      prep(
+        'site/500',
+        homeCtrl
+      )
+    ).otherwise(
+      redirectTo: "/404"
+    )
 ]

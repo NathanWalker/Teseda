@@ -44,12 +44,6 @@ App
 App.run ["LogService", "UXTrackingService", "$rootScope", "$location", "$window", "$timeout", "$http", "StaticTextService", "UserService", "AppSettingsService", "ModalService", "BreadcrumbService", (log, ux, $rootScope, $location, $window, $timeout, $http, statictext, userService, settings, modal, bcService) ->
 
   ###
-  Setup certain route specific methods on $rootScope
-  ###
-  prefix = ""
-  prefix = "#" + CONFIG.routing.prefix  unless CONFIG.routing.html5Mode
-
-  ###
   Convenience properties
   ###
   $rootScope.platform = Teseda.platform
